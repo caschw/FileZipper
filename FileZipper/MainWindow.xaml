@@ -1,0 +1,63 @@
+﻿<Window x:Class="FileZipper.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ia="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:local="clr-namespace:FileZipper;assembly=FileZipper"
+        xmlns:ViewModels="clr-namespace:FileZipper.ViewModels"
+        Title="File Zipper" Icon="Assets/Images/zippedFile.png" Height="350" Width="525">
+
+    <Window.Resources>
+        <ViewModels:FileZipperViewModel x:Key="ViewModel"/>
+    </Window.Resources>
+
+    <Grid x:Name="LayoutRoot" DataContext="{StaticResource ViewModel}" Background="LightGray">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ListBox x:Name="FileNameDropBox" ItemsSource="{Binding Docs, Mode=OneWay}" AllowDrop="True" Drop="FileNameDropBox_Drop" Height="200" Background="White" Margin="10" VerticalAlignment="Top" 
+                 ItemContainerStyle="{StaticResource ListBoxItemContainerStyle}" SelectedItem="{Binding SelectedDoc, Mode=TwoWay}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Filename}"/>
+                        <Button x:Name="DocumentDelete" Grid.Column="1" Style="{StaticResource ImageButton}">                            
+                            <Button.Content>
+                                <Image Source="Assets/Images/delete.png"/>
+                            </Button.Content>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <ia:ChangePropertyAction PropertyName="SelectedItem" Value="{Binding}" TargetObject="{Binding ElementName=FileNameDropBox}"/>
+                                    <ia:CallMethodAction MethodName="RemoveFile" TargetObject="{StaticResource ViewModel}"/>                                    
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button x:Name="BrowseButton" Grid.Column="1" Content="..." Width="25" Height="35" Margin="10,5">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <ia:CallMethodAction MethodName="OnBrowse" TargetObject="{Binding}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
+        <Button x:Name="ZipButton" Grid.Row="1" Grid.Column="1" Content="Zip Me!">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <ia:CallMethodAction MethodName="OnZip" TargetObject="{Binding}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
+    </Grid>
+</Window>

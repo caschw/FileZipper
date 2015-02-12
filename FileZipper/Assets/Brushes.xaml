@@ -1,0 +1,38 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                    xmlns:System="clr-namespace:System;assembly=mscorlib">
+
+    <!-- 
+    ***************************************************************************
+    Green Accents
+    ***************************************************************************
+    -->
+    <!--
+    <SolidColorBrush x:Key="InputSelectionBrush" Color="#FF75A20A" />
+    <SolidColorBrush x:Key="ColorAccentOverBrush" Color="#c3e040" />
+    <SolidColorBrush x:Key="ColorAccentHighlightBrush" Color="#c2df00" />
+    <SolidColorBrush x:Key="ColorAccentSolidBrush" Color="#FF75A20A" />
+    -->
+    <!-- 
+    ***************************************************************************
+    Orange Accents (Remove Comments to Enable)
+    ***************************************************************************
+    -->
+    
+    <SolidColorBrush x:Key="InputSelectionBrush" Color="#ff8a24" />
+    <SolidColorBrush x:Key="ColorAccentOverBrush" Color="#ffcda1" />
+    <SolidColorBrush x:Key="ColorAccentHighlightBrush" Color="#FFFFC600" />
+    <SolidColorBrush x:Key="ColorAccentSolidBrush" Color="#FE770A" />
+    
+    <!-- 
+    ***************************************************************************
+    Blue Accents (Remove Comments to Enable)
+    ***************************************************************************
+    -->
+    <!--
+    <SolidColorBrush x:Key="InputSelectionBrush" Color="#7ea4fc"/>
+    <SolidColorBrush x:Key="ColorAccentOverBrush" Color="#c5d1f0"/>
+    <SolidColorBrush x:Key="ColorAccentHighlightBrush" Color="#8ddbff" />
+    <SolidColorBrush x:Key="ColorAccentSolidBrush" Color="#148cd1" />
+    -->
+</ResourceDictionary>
