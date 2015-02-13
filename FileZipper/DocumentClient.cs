@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using FileZipper.Models;
+using CsvHelper;
 
 namespace FileZipper
 {
@@ -18,11 +19,14 @@ namespace FileZipper
     /// 
     public class DocumentClient
     {
-        private WebClient _wc;
+        private readonly WebClient _wc;
 
         public DocumentClient()
         {
-            _wc = new WebClient();
+            _wc = new WebClient
+            {
+                UseDefaultCredentials = true
+            };
         }
 
         public List<Document> GetDocuments(IEnumerable<string> filePaths)
@@ -84,8 +88,19 @@ namespace FileZipper
 
         private List<Uri> ParseDocumentForUris(string path)
         {
-            //TODO: Implement actual code.
-            return new List<Uri>();
+            var urls = new List<Uri>();
+            var csv = new CsvReader(new CsvParser(new StreamReader(new MemoryStream(File.ReadAllBytes(path)))));
+
+            while (csv.Read())
+            {
+                var record = csv.GetRecord<dynamic>();
+                if (record.Url != null)
+                {
+                    urls.Add(new Uri(record.Url));
+                }
+            }
+
+            return urls;
         }
 
         private Document GenerateDocument(string path)
